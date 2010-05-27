@@ -2,7 +2,7 @@ from feeds.models import Feed
 
 from feeds.models import insert_feed, insert_basic_feeds
 from feeds.models import insert_users_and_subscriptions
-from feeds.models import get_user_feeds
+from feeds.models import get_user_feeds, get_feed
 
 from django.test import Client
 
@@ -32,3 +32,9 @@ class TestModels(unittest.TestCase):
         self.assertEquals(0, len(get_user_feeds('does-not-exist')))
         self.assertEquals(1, len(get_user_feeds('foo')))
         self.assertEquals(2, len(get_user_feeds('ema')))
+
+    def test_get_feed(self):
+        insert_basic_feeds()
+
+        for feed in Feed.all():
+            self.failUnless(get_feed(str(feed.key())))

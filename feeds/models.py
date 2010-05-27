@@ -43,10 +43,24 @@ def insert_users_and_subscriptions():
     subscription = Subscription(user=user.key(), feed=feed.key())
     subscription.put()
 
-def get_user_feeds(username):
+def get_user(username):
     try:
         user = User.all().filter('name', username)[0]
+        return user
     except IndexError:
+        return None
+
+def get_user_feeds(username):
+    user = get_user(username)
+
+    if user is None:
         return []
 
     return [ sub.feed for sub in Subscription.all().filter('user', user) ]
+
+def get_feed(feed_key):
+    """Feed with the given feed_key (str)
+
+    get_feed(feed_key) -> Feed"""
+    feed_key = db.Key(feed_key)
+    return Feed.all().filter('__key__', feed_key)[0]
