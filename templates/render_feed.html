@@ -1,8 +1,15 @@
-<h1>{{ feed.description }}</h1>
+{% extends "base.html" %}
+
+{% block "content" %}
+
+<h1>{{ feed.name }}</h1>
+<h2>{{ feed.description }}</h2>
 
 {% for entry in entries %}
-<h2><a href="{{ entry.link }}">{{ entry.title }}</a></h2>
+<h3><a href="{{ entry.link }}">{{ entry.title }}</a></h3>
 <p>
     {{ entry.description|safe }}
 </p>
 {% endfor %}
+
+{% endblock %}

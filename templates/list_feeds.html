@@ -1,5 +1,11 @@
+{% extends "base.html" %}
+
+{% block "content" %}
+
 {% for feed in user_feeds %}
 <p>
     <a href="/{{ username }}/{{ feed.key }}/">{{ feed.name }} - {{ feed.description }}</a>
 </p>
 {% endfor %}
+
+{% endblock %}
