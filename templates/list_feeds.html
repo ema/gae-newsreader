@@ -2,6 +2,11 @@
 
 {% block "content" %}
 
+<form method="post" action="addfeed/">
+    <label for="rssurl">Add RSS feed:</label>
+    <input type="text" name="rssurl" />
+</form>
+
 {% for feed in user_feeds %}
 <p>
     <a href="/{{ username }}/{{ feed.key }}/">{{ feed.name }} - {{ feed.description }}</a>
