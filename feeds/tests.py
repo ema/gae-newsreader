@@ -29,6 +29,6 @@ class TestModels(unittest.TestCase):
         insert_basic_feeds()
         insert_users_and_subscriptions()
         
-        self.assertEquals(2, len(get_user_feeds('ema')))
-        self.assertEquals(1, len(get_user_feeds('foo')))
         self.assertEquals(0, len(get_user_feeds('does-not-exist')))
+        self.assertEquals(1, len(get_user_feeds('foo')))
+        self.assertEquals(2, len(get_user_feeds('ema')))
