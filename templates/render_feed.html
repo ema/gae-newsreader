@@ -1,1 +1,8 @@
 <h1>{{ feed.description }}</h1>
+
+{% for entry in entries %}
+<h2><a href="{{ entry.link }}">{{ entry.title }}</a></h2>
+<p>
+    {{ entry.description|safe }}
+</p>
+{% endfor %}
