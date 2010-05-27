@@ -16,10 +16,12 @@ class Subscription(BaseModel):
     user = db.ReferenceProperty(User) 
     feed = db.ReferenceProperty(Feed)
 
+def get_users():
+    return User.all()
 
 def get_user(username):
     try:
-        user = User.all().filter('name', username)[0]
+        user = get_users().filter('name', username)[0]
         return user
     except IndexError:
         return None

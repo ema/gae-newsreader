@@ -2,7 +2,7 @@
 from django.shortcuts import render_to_response
 from django.http import HttpResponse, HttpResponseRedirect, Http404
 
-from feeds.models import get_user, get_user_feeds, get_feed
+from feeds.models import get_user, get_user_feeds, get_feed, get_users
 from feeds.models import add_user_subscription
 
 import feedparser
@@ -38,3 +38,7 @@ def add_feed(request, username):
         return HttpResponse("Cannot parse feed: %s" % rssurl)
 
     return HttpResponseRedirect('/%s/' % username)
+
+def homepage(request):
+    users = get_users()
+    return render_to_response("homepage.html", locals())

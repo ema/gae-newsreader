@@ -14,13 +14,14 @@
 
 from django.conf.urls.defaults import *
 
-urlpatterns = patterns('',
+urlpatterns = patterns('feeds.views',
     # Example:
     # (r'^foo/', include('foo.urls')),
 
     # Uncomment this for admin:
-    (r'^admin/', include('django.contrib.admin.urls')),
-    (r'^(?P<username>\w+)/(?P<feed_key>\w{32})/', 'feeds.views.render_feed'),
-    (r'^(?P<username>\w+)/addfeed/', 'feeds.views.add_feed'),
-    (r'^(?P<username>\w+)/', 'feeds.views.user_feeds')
+    #(r'^admin/', include('django.contrib.admin.urls')),
+    (r'^(?P<username>\w+)/(?P<feed_key>\w{32})/', 'render_feed'),
+    (r'^(?P<username>\w+)/addfeed/', 'add_feed'),
+    (r'^(?P<username>\w+)/', 'user_feeds'),
+    (r'', 'homepage'),
 )
