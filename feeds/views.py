@@ -4,6 +4,7 @@ from django.http import HttpResponse, HttpResponseRedirect, Http404
 
 from feeds.models import get_user, get_user_feeds, get_feed, get_users
 from feeds.models import add_user_subscription
+from feeds.models import User
 
 import feedparser
 
@@ -29,11 +30,21 @@ def auth_decorator(function):
 
 @auth_decorator
 def user_feeds(request, username, logout_url=None, login_url=None, user=None):
-    if not get_user(username):
-        return Http404()
+    # let's add this user if logged in and not present in db
+    db_user = get_user(username)
 
-    user_feeds = get_user_feeds(username)
-    return render_to_response("list_feeds.html", locals())
+    if user and not db_user and username == user.nickname():
+        db_user = User(name=user.nickname())
+        db_user.put()
+
+    logging.info("%s - %s" % (username, user))
+    logging.info(str(db_user))
+
+    if db_user:
+        user_feeds = get_user_feeds(username)
+        return render_to_response("list_feeds.html", locals())
+
+    raise Http404
 
 @auth_decorator
 def render_feed(request, username, feed_key, logout_url=None, login_url=None,
@@ -61,5 +72,5 @@ def add_feed(request, username):
 
 @auth_decorator
 def homepage(request, logout_url=None, login_url=None, user=None):
-    users_list = get_users()
+    users_list = [ u for u in get_users() if get_user_feeds(u.name) ]
     return render_to_response("homepage.html", locals())

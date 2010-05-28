@@ -51,6 +51,7 @@ def add_feed(rssurl):
 
 def add_user_subscription(username, rssurl):
     user = get_user(username)
+
     assert user is not None
 
     feed = Feed.all().filter('url', rssurl)

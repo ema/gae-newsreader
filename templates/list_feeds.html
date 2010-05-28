@@ -2,12 +2,12 @@
 
 {% block "content" %}
 
-{% if user %}
+{% ifequal username user.nickname %}
 <form method="post" action="addfeed/">
     <label for="rssurl">Add RSS feed:</label>
     <input type="text" name="rssurl" />
 </form>
-{% endif %}
+{% endifequal %}
 
 {% for feed in user_feeds %}
 <p>
