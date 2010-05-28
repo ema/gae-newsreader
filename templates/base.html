@@ -9,6 +9,16 @@
 
 <h1><a href="/">upstairs' newsreader</a></h1>
 
+<div id="menu">
+<p>
+{% if logout_url %}
+    Logged in as: {{ user.nickname }} - <a href="{{ logout_url }}">logout</a>
+{% else %}
+    <a href="{{ login_url }}" />login</a>    
+{% endif %}
+</p>
+</div>
+
 <div id="content">
     {% block "content" %}
     {% endblock %}

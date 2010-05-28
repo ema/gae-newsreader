@@ -2,10 +2,12 @@
 
 {% block "content" %}
 
+{% if user %}
 <form method="post" action="addfeed/">
     <label for="rssurl">Add RSS feed:</label>
     <input type="text" name="rssurl" />
 </form>
+{% endif %}
 
 {% for feed in user_feeds %}
 <p>

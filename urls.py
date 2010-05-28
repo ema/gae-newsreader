@@ -20,8 +20,8 @@ urlpatterns = patterns('feeds.views',
 
     # Uncomment this for admin:
     #(r'^admin/', include('django.contrib.admin.urls')),
-    (r'^(?P<username>\w+)/(?P<feed_key>\w{32})/', 'render_feed'),
     (r'^(?P<username>\w+)/addfeed/', 'add_feed'),
+    (r'^(?P<username>\w+)/(?P<feed_key>[\w-]+)/', 'render_feed'),
     (r'^(?P<username>\w+)/', 'user_feeds'),
     (r'', 'homepage'),
 )
