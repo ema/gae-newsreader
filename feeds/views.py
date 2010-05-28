@@ -28,6 +28,18 @@ def auth_decorator(function):
 
     return new_view
 
+def username_nickname_match(function):
+    def new_view(*args, **kwargs):
+        username = kwargs['username']
+
+        user = users.get_current_user()
+        if user and user.nickname() == username:
+            return function(*args, **kwargs)
+
+        return HttpResponse("", status=401)
+
+    return new_view
+
 @auth_decorator
 def user_feeds(request, username, logout_url=None, login_url=None, user=None):
     # let's add this user if logged in and not present in db
@@ -60,6 +72,7 @@ def render_feed(request, username, feed_key, logout_url=None, login_url=None,
 
     return render_to_response("render_feed.html", locals())
 
+@username_nickname_match
 def add_feed(request, username):
     rssurl = request.POST['rssurl']
 
