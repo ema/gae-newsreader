@@ -3,7 +3,7 @@ from django.shortcuts import render_to_response
 from django.http import HttpResponse, HttpResponseRedirect, Http404
 
 from feeds.models import get_user, get_user_feeds, get_feed, get_users
-from feeds.models import add_user_subscription
+from feeds.models import add_user_subscription, remove_user_subscription
 from feeds.models import User
 
 import feedparser
@@ -81,6 +81,11 @@ def add_feed(request, username):
     except KeyError:
         return HttpResponse("Cannot parse feed: %s" % rssurl)
 
+    return HttpResponseRedirect('/%s/' % username)
+
+@username_nickname_match
+def remove_feed(request, username, feed_key):
+    remove_user_subscription(username, feed_key)
     return HttpResponseRedirect('/%s/' % username)
 
 @auth_decorator

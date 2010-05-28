@@ -67,6 +67,15 @@ def add_user_subscription(username, rssurl):
 
     return subscription.put()
 
+def remove_user_subscription(username, feed_key):
+    user = get_user(username)
+    feed = get_feed(feed_key)
+
+    assert user and feed
+
+    subscription = Subscription.all().filter('user', user).filter('feed', feed)
+    return subscription[0].delete()
+
 # XXX
 BASIC_FEEDS = (
     'http://rss.slashdot.org/Slashdot/slashdot',
