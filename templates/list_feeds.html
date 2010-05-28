@@ -7,6 +7,11 @@
     <label for="rssurl">Add RSS feed:</label>
     <input type="text" name="rssurl" />
 </form>
+
+<h2>Your subscriptions</h2>
+{% else %}
+<h2>{{ username }}'s subscriptions</h2>
+
 {% endifequal %}
 
 {% for feed in user_feeds %}
