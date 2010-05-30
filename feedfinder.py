@@ -1,8 +1,12 @@
-"""Find RSS feeds for the given keyword, using Google search results"""
-
+"""
+Find RSS feeds for the given keyword parsing HTML documents returned by Google
+search results.
+"""
 import urllib2
 import simplejson
 from BeautifulSoup import BeautifulSoup, SoupStrainer
+
+import unittest
 
 SEARCH_API = "http://ajax.googleapis.com/ajax/services/search/web?v=1.0&q=%s"
 
@@ -40,8 +44,11 @@ def find_feeds(keyword):
 
     return feeds
 
+class TestBase(unittest.TestCase):
+    
+    def test_slashdot(self):
+        self.failUnless('http://rss.slashdot.org/Slashdot/slashdot'
+            in find_feeds('slashdot'))
+
 if __name__ == "__main__":
-    import sys
-    print "Feeds for keyword", sys.argv[1]
-    for feed in find_feeds(sys.argv[1]):
-        print feed
+    unittest.main()
