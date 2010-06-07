@@ -32,7 +32,12 @@ def find_rss_feeds(url):
 
     links = SoupStrainer('link', attrs={'type': 'application/rss+xml'})
 
-    return [ dict(tag.attrs)['href']
+    def add_uri_prefix(uri):
+        if not uri.startswith('http'):
+            return url + uri
+        return uri
+
+    return [ add_uri_prefix(dict(tag.attrs)['href'])
         for tag in BeautifulSoup(content, parseOnlyThese=links) ]
 
 def find_feeds(keyword):
