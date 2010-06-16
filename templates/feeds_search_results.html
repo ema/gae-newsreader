@@ -1,0 +1,20 @@
+
+{% extends "base.html" %}
+
+{% block "content" %}
+
+{% if feeds %}
+<ul>
+{% for feed in feeds %}
+    <li>
+        <a href="/{{ username }}/addfeed/?keyword={{ feed }}">{{ feed }}</a>
+    </li>
+{% endfor %}
+</ul>
+{% else %}
+<p>
+    No RSS feed found!
+</p>
+{% endif %}
+
+{% endblock %}

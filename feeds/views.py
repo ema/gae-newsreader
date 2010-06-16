@@ -1,12 +1,14 @@
 
 from django.shortcuts import render_to_response
 from django.http import HttpResponse, HttpResponseRedirect, Http404
+from django.utils.datastructures import MultiValueDictKeyError
 
 from feeds.models import get_user, get_user_feeds, get_feed, get_users
 from feeds.models import add_user_subscription, remove_user_subscription
 from feeds.models import User
 
 import feedparser
+import feedfinder
 
 import logging
 
@@ -73,15 +75,22 @@ def render_feed(request, username, feed_key, logout_url=None, login_url=None,
     return render_to_response("render_feed.html", locals())
 
 @username_nickname_match
-def add_feed(request, username):
-    rssurl = request.POST['rssurl']
-
+def find_feed_from_keyword(request, username):
     try:
-        add_user_subscription(username, rssurl)
-    except KeyError:
-        return HttpResponse("Cannot parse feed: %s" % rssurl)
+        keyword = request.POST['keyword']
+    except MultiValueDictKeyError:
+        keyword = request.GET['keyword']
 
-    return HttpResponseRedirect('/%s/' % username)
+    # user supplied an URI
+    if keyword.startswith('http://'):
+        try:
+            add_user_subscription(username, keyword)
+            return HttpResponseRedirect('/%s/' % username)
+        except KeyError:
+            return HttpResponse("Cannot parse feed: %s" % keyword)
+
+    return render_to_response("feeds_search_results.html",
+        dict(feeds=feedfinder.find_feeds(keyword), username=username))
 
 @username_nickname_match
 def remove_feed(request, username, feed_key):

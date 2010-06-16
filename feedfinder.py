@@ -3,7 +3,11 @@ Find RSS feeds for the given keyword parsing HTML documents returned by Google
 search results.
 """
 import urllib2
-import simplejson
+try:
+    import simplejson
+except ImportError:
+    from django.utils import simplejson
+
 from BeautifulSoup import BeautifulSoup, SoupStrainer
 
 import unittest

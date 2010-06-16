@@ -22,7 +22,7 @@ urlpatterns = patterns('feeds.views',
 
     # Uncomment this for admin:
     #(r'^admin/', include('django.contrib.admin.urls')),
-    (r'^(?P<username>%s+)/addfeed/' % USERID_VALID_CHARS, 'add_feed'),
+    (r'^(?P<username>%s+)/addfeed/' % USERID_VALID_CHARS, 'find_feed_from_keyword'),
     (r'^(?P<username>%s+)/(?P<feed_key>[\w-]+)/removesub/' % USERID_VALID_CHARS, 'remove_feed'),
     (r'^(?P<username>%s+)/(?P<feed_key>[\w-]+)/' % USERID_VALID_CHARS, 'render_feed'),
     (r'^(?P<username>%s+)/' % USERID_VALID_CHARS, 'user_feeds'),
