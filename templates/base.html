@@ -1,8 +1,10 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
             "http://www.w3.org/TR/html4/strict.dtd"> 
 <html> 
+
 <head>
-<title>upstairs' newsreader</title>
+    <title>upstairs' newsreader</title>
+    <link rel="stylesheet" type="text/css" href="/static/lynx.css" /> 
 </head>
 
 <body>
@@ -10,14 +12,14 @@
 <h1><a href="/">upstairs' newsreader</a></h1>
 
 <div id="menu">
-<p>
-{% if logout_url %}
-    Logged in as: {{ user.nickname }} - <a href="{{ logout_url }}">logout</a>
-    | <a href="/{{ user.nickname }}/">your subscriptions</a>
-{% else %}
-    <a href="{{ login_url }}" />login</a>    
-{% endif %}
-</p>
+    <p>
+    {% if logout_url %}
+        Logged in as: {{ user.nickname }} - <a href="{{ logout_url }}">logout</a>
+        | <a href="/{{ user.nickname }}/">your subscriptions</a>
+    {% else %}
+        <a href="{{ login_url }}" />login</a>    
+    {% endif %}
+    </p>
 </div>
 
 <div id="content">
