@@ -24,8 +24,6 @@
             }
 
             var setSelectedId = function(oldId, newId) {
-                console.log(oldId + " -> " + newId);
-
                 var oldElem = $("#" + oldId);
                 var newElem = $("#" + newId);
 
@@ -34,6 +32,9 @@
 
                 $(newElem).removeClass(offClass);
                 $(newElem).addClass(onClass);
+
+                if ($(newElem).attr("type") == "text") 
+                    $(newElem).focus();
             }
 
             var goUp = function(sel) {
@@ -42,23 +43,18 @@
             }
 
             var goDown = function(sel) {
-                console.log("max: " + maxId);
-
                 if (sel < maxId) 
                     setSelectedId(sel, sel + 1);
             }
 
             var goBack = function(sel) {
-                console.log("goBack");
+                history.back();
             }
 
             var goForward = function(sel) {
-                console.log("goForward");
-            }
-
-            var activate = function(sel) {
                 var selectedElem = $("#" + sel);
-                window.location.href = selectedElem.attr('href');
+                window.location.href = $(selectedElem).attr('href');
+                return false;
             }
 
             var init = function() {
@@ -91,19 +87,16 @@
                           goUp(sel);
                           break;
                         case 39: 
-                          goForward(sel);
+                          return goForward(sel);
                           break;
                         case 40: 
                           goDown(sel);
                           break;
                         case 13: 
-                          activate(sel);
+                          if ($("#" + sel).attr('type') != "text")
+                              return goForward(sel);
                           break;
                     }
-
-                    if ((sel % 5) != 0)
-                        // XXX ugly !
-                        return false;
                 });
             }
 
