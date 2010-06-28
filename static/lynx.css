@@ -2,14 +2,28 @@ body {
     background: black;
 }
 
-p, label {
+h1, h2, h3, p {
     color: #f7f0f1;
 }
 
-a {
-    color: green;
+label {
+    color: purple;
 }
 
-a:hover {
+a.elemOff {
+    color: green;
+    text-decoration: none;
+}
+
+a:hover, a.elemOn {
     color: yellow;
+    text-decoration: none;
+}
+
+p, label {
+    margin-left: 1em;
+}
+
+h1 {
+    text-align: center;
 }
