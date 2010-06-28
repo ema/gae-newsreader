@@ -1,0 +1,15 @@
+body {
+    background: black;
+}
+
+p, label {
+    color: #f7f0f1;
+}
+
+a {
+    color: green;
+}
+
+a:hover {
+    color: yellow;
+}
