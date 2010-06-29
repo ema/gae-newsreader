@@ -62,13 +62,16 @@
 
         var scrollWindow = function() {
             /* window scrolling */
-            var position = $(getSelectedElem()).offset();
-            var curHeight = $(window).height();
-            if (parseInt(position['top']) > parseInt(curHeight)) {
-                $('html, body').animate({
-                    scrollTop: position['top']
-                }, 500);
-            }
+            var curTop = parseInt($("html, body").scrollTop());
+
+            var curBottom = parseInt($(window).height()) + curTop;
+
+            var position = parseInt($(getSelectedElem()).offset().top);
+
+            console.log("bottom: " + curBottom + " top: " + curTop + " position: " + position);
+
+            if (position > curBottom || position < curTop)
+                $('html, body').animate({ scrollTop: position - 15 }, 500);
 
             return false;
         }
