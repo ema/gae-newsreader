@@ -72,9 +72,19 @@ def render_feed(request, username, feed_key, logout_url=None, login_url=None,
     entries = []
     channels = feedparser.parse(feed.url)
     for entry in channels.entries:
-        entries.append(dict(title=entry.title,
-            description=entry.description, link=entry.link,
-                date=datetime.fromtimestamp(time.mktime(entry.updated_parsed))))
+        entryd = {
+            'title': entry.title,
+            'description': entry.description,
+            'link': entry.link
+        }
+
+        try:
+            entryd['date'] = datetime.fromtimestamp(time.mktime(
+                entry.updated_parsed))
+        except AttributeError:
+            entryd['date'] = None
+
+        entries.append(entryd)
 
     return render_to_response("render_feed.html", locals())
 

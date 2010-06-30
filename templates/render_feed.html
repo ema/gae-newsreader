@@ -9,9 +9,13 @@
 
 {% for entry in entries %}
 <h3><a href="{{ entry.link }}">{{ entry.title }}</a></h3>
-<p> 
-    {{ entry.date|naturalday }} {{ entry.date.hour }}:{{ entry.date.minute }}
-</p>
+
+{% if entry.date %}
+    <p> 
+        {{ entry.date|naturalday }} {{ entry.date.hour }}:{{ entry.date.minute }}
+    </p>
+{% endif %}
+
 <p>
     {{ entry.description|safe }}
 </p>
