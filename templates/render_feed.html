@@ -1,5 +1,7 @@
 {% extends "base.html" %}
 
+{% load humanize %}
+
 {% block "content" %}
 
 <h1>{{ feed.name }}</h1>
@@ -7,6 +9,9 @@
 
 {% for entry in entries %}
 <h3><a href="{{ entry.link }}">{{ entry.title }}</a></h3>
+<p> 
+    {{ entry.date|naturalday }} {{ entry.date.hour }}:{{ entry.date.minute }}
+</p>
 <p>
     {{ entry.description|safe }}
 </p>
